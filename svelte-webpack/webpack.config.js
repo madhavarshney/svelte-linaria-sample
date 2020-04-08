@@ -4,6 +4,14 @@ const path = require('path');
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
+const linariaLoader = {
+	loader: 'linaria/loader',
+	options: {
+		sourceMap: !prod,
+		cacheDirectory: path.resolve(__dirname, 'node_modules/.cache/.linaria-cache')
+	}
+};
+
 module.exports = {
 	entry: {
 		bundle: ['./src/main.js']
@@ -23,14 +31,23 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.m?js$/,
+				exclude: /node_modules/,
+				use: [linariaLoader]
+			},
+			{
 				test: /\.svelte$/,
-				use: {
-					loader: 'svelte-loader',
-					options: {
-						emitCss: true,
-						hotReload: true
-					}
-				}
+				use: [
+					linariaLoader,
+					{
+						loader: 'svelte-loader',
+						options: {
+							dev: !prod,
+							emitCss: true,
+							hotReload: true
+						},
+					},
+				],
 			},
 			{
 				test: /\.css$/,
