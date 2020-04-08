@@ -3,6 +3,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import css from 'rollup-plugin-css-only';
+import linaria from 'linaria/rollup';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -18,11 +20,21 @@ export default {
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
-			// we'll extract any component CSS out into
-			// a separate file - better for performance
-			css: css => {
-				css.write('public/build/bundle.css');
-			}
+			// disable inbuilt CSS bundling,
+			// allow `rollup-plugin-css-only` to bundle CSS
+			emitCss: true,
+		}),
+
+		// extract linaria CSS from .js and .svelte code
+		linaria({
+			sourceMap: !production,
+		}),
+		// bundle CSS generated from Svelte and Linaria together
+		// NOTE: `rollup-plugin-css-only` generates incorrect sourcemaps
+		//       see https://github.com/thgh/rollup-plugin-css-only/issues/10
+		//       use `rollup-plugin-postcss` or an alternative instead
+		css({
+			output: 'public/build/bundle.css',
 		}),
 
 		// If you have external dependencies installed from
