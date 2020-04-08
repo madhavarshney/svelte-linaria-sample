@@ -1,11 +1,11 @@
 # svelte-linaria-sample
 
-This repo shows how to use the CSS-in-JS library [`linaria`](https://linaria.now.sh/) with [Svelte](https://svelte.dev/) v3.
+This repo shows how to use the CSS-in-JS library [`linaria`](https://linaria.now.sh/) with [Svelte](https://svelte.dev/) v3. The example folder [`svelte-rollup`](/svelte-rollup) is generated from [sveltejs/template](https://github.com/sveltejs/template) and the example folder [`svelte-webpack`](/svelte-webpack) is generated from [sveltejs/template-webpack](https://github.com/sveltejs/template-webpack).
 
 ## Contents
-- [Svelte with Rollup](/#Rollup)
-- [Svelte with Webpack](/#Webpack)
-- [Contributing](/#Contributing)
+- [Svelte with Rollup](#Rollup)
+- [Svelte with Webpack](#Webpack)
+- [Contributing](#Contributing)
 
 ## Rollup
 
